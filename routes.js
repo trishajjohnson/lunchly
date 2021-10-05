@@ -12,6 +12,7 @@ const router = new express.Router();
 router.get("/", async function(req, res, next) {
   try {
     const customers = await Customer.all();
+    
     return res.render("customer_list.html", { customers });
   } catch (err) {
     return next(err);
@@ -51,7 +52,6 @@ router.post("/add/", async function(req, res, next) {
 router.get("/:id/", async function(req, res, next) {
   try {
     const customer = await Customer.get(req.params.id);
-
     const reservations = await customer.getReservations();
 
     return res.render("customer_detail.html", { customer, reservations });
